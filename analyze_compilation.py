@@ -35,7 +35,22 @@ print(df[["original_size", "prepared_size", "compiled_size"]].to_string(index=Fa
 print()
 
 print("=== Statistics ===")
-print(f"total of {len(df)} contracts", )
-stats = df.agg(["mean", lambda x: np.percentile(x, 95), "max"])
+count_over_32 = (df["compiled/original"] > 32).sum()
+count_over_64 = (df["compiled/original"] > 64).sum()
+count_over_128 = (df["compiled/original"] > 128).sum()
+count_over_256 = (df["compiled/original"] > 256).sum()
+count_over_512 = (df["compiled/original"] > 512).sum()
+print(f"""total of {len(df)} contracts, 
+    {count_over_32} with compiled/original > 32, 
+    {count_over_64} with compiled/original > 64, 
+    {count_over_128} with compiled/original > 128,
+    {count_over_256} with compiled/original > 256,
+    {count_over_512} with compiled/original > 512,
+    """)
+stats = df.agg(
+    ["mean",
+     lambda x: np.percentile(x, 95),
+     lambda x: np.percentile(x, 99),
+     "max"])
 stats.index = ["avg", "p95", "p99", "max"]
 print(stats.to_string())
