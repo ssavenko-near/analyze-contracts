@@ -5,6 +5,7 @@ import glob
 # requires 
 # - `near config add-connection --network-name localnet --connection-name localnet --rpc-url http://localhost:3030/ --wallet-url http://localhost:3030/ --explorer-transaction-url http://localhost:3030/`
 # - copy the validator_key.json from neard home to ~/.near-credentials/localtnet/test.near.json
+# - replace the `s/secret_key/private_key/g` in the `test.near.json`
 
 # call to setup the `localnet` network configuration
 
